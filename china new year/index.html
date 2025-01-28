@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             margin: 0;
@@ -16,16 +17,20 @@
 
         .container {
             text-align: center;
-            padding: 2rem;
+            padding: 1rem;
             position: relative;
             z-index: 1;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         h1 {
             color: #FFD700;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            font-size: 3rem;
-            margin-bottom: 2rem;
+            font-size: 2rem;
+            margin: 1rem 0;
+            padding: 0 1rem;
             animation: glowText 2s infinite alternate;
         }
 
@@ -35,12 +40,12 @@
         }
 
         .lantern {
-            width: 60px;
-            height: 80px;
+            width: 40px;
+            height: 60px;
             background: #ff4d4d;
-            border-radius: 30px;
+            border-radius: 20px;
             position: relative;
-            margin: 20px;
+            margin: 15px;
             display: inline-block;
             animation: swing 3s infinite ease-in-out;
             box-shadow: 0 0 20px rgba(255, 77, 77, 0.6);
@@ -57,10 +62,10 @@
         .lantern::before {
             content: '';
             position: absolute;
-            top: -10px;
-            left: 25px;
-            width: 10px;
-            height: 10px;
+            top: -8px;
+            left: 15px;
+            width: 8px;
+            height: 8px;
             background: #FFD700;
             border-radius: 50%;
             animation: glow 1s infinite alternate;
@@ -73,7 +78,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: #FFD700;
-            font-size: 24px;
+            font-size: 20px;
             animation: pulse 2s infinite;
         }
 
@@ -97,71 +102,44 @@
         }
 
         .pattern-button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            padding: 12px 24px;
+            font-size: 1rem;
             background-color: #FFD700;
             border: none;
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
+            width: 80%;
+            max-width: 300px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             animation: bounce 1s infinite;
-            position: relative;
+            -webkit-tap-highlight-color: transparent;
         }
-        .pattern-button a{
+
+        .pattern-button a {
             text-decoration: none;
+            color: #ff4d4d;
+            display: block;
+            width: 100%;
+            height: 100%;
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-5px); }
         }
 
-        .pattern-button:hover {
-            transform: scale(1.05);
-            animation-play-state: paused;
-        }
-
-        .pattern-a {
-            background-color: #FFD700;
-            color: #ff4d4d;
-        }
-
-        .pattern-b {
-            background-color: #ff4d4d;
-            color: #FFD700;
-        }
-
-        .firecracker {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: #FFD700;
-            animation: explode 1s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes explode {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(0);
-                opacity: 0;
-            }
+        .pattern-button:active {
+            transform: scale(0.95);
         }
 
         .floating-clouds {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             pointer-events: none;
+            overflow: hidden;
         }
 
         .cloud {
@@ -177,13 +155,14 @@
         }
 
         .red-packet {
-            position: absolute;
-            width: 30px;
-            height: 40px;
+            position: fixed;
+            width: 20px;
+            height: 30px;
             background: #ff0000;
-            border-radius: 5px;
+            border-radius: 3px;
             animation: fall 3s linear infinite;
             opacity: 0;
+            z-index: 0;
         }
 
         @keyframes fall {
@@ -196,32 +175,56 @@
                 opacity: 0;
             }
         }
+
+        .firecracker {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #FFD700;
+            animation: explode 1s ease-out forwards;
+            opacity: 0;
+            z-index: 0;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="floating-clouds"></div>
     <div class="container">
-        <h1>Happy Chines new Year</h1>
+        <h1>Happy Chinese New Year</h1>
         <div class="lantern"></div>
         <div class="lantern"></div>
         <div class="lantern"></div>
-        <button class="pattern-button pattern-a" onclick="togglePattern()"><a href="" >
-            <a href="https://link.payway.com.kh/aba?id=09CD48FFB219&code=295983&acc=003993226&amount=0.5&dynamic=true" >Give Me 0.5$</a>
+        <button class="pattern-button pattern-a">
+            <a href="https://link.payway.com.kh/aba?id=09CD48FFB219&code=295983&acc=003993226&amount=0.5&dynamic=true">Give Me 0.5$</a>
         </button>
     </div>
 
     <script>
         let isPatternA = true;
         
-        // Create floating clouds
         function createClouds() {
             const cloudsContainer = document.querySelector('.floating-clouds');
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 8; i++) {
                 const cloud = document.createElement('div');
                 cloud.className = 'cloud';
                 cloud.style.top = `${Math.random() * 100}%`;
-                cloud.style.width = `${Math.random() * 100 + 50}px`;
-                cloud.style.height = `${Math.random() * 60 + 30}px`;
+                cloud.style.width = `${Math.random() * 60 + 30}px`;
+                cloud.style.height = `${Math.random() * 40 + 20}px`;
                 cloud.style.opacity = `${Math.random() * 0.3 + 0.1}`;
                 cloud.style.animationDuration = `${Math.random() * 20 + 10}s`;
                 cloudsContainer.appendChild(cloud);
@@ -237,51 +240,32 @@
             setTimeout(() => packet.remove(), 3000);
         }
 
-        function togglePattern() {
-            const button = document.querySelector('.pattern-button');
-            isPatternA = !isPatternA;
-            
-            if (isPatternA) {
-                button.classList.remove('pattern-b');
-                button.classList.add('pattern-a');
-            } else {
-                button.classList.remove('pattern-a');
-                button.classList.add('pattern-b');
-            }
-            
-            createFireworks();
-            createRedPacket();
-        }
-
-        function createFireworks() {
-            for (let i = 0; i < 30; i++) {
+        function createFireworks(x, y) {
+            for (let i = 0; i < 20; i++) {
                 const firecracker = document.createElement('div');
                 firecracker.className = 'firecracker';
                 
                 const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 150 + 50;
+                const distance = Math.random() * 100 + 30;
                 
                 firecracker.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
                 firecracker.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
                 
-                const button = document.querySelector('.pattern-button');
-                const rect = button.getBoundingClientRect();
-                
-                firecracker.style.left = `${rect.left + rect.width / 2}px`;
-                firecracker.style.top = `${rect.top + rect.height / 2}px`;
+                firecracker.style.left = `${x}px`;
+                firecracker.style.top = `${y}px`;
                 
                 document.body.appendChild(firecracker);
                 
-                setTimeout(() => {
-                    firecracker.remove();
-                }, 1000);
+                setTimeout(() => firecracker.remove(), 1000);
             }
         }
 
-        // Initialize clouds on load
+        document.querySelector('.pattern-button').addEventListener('touchstart', function(e) {
+            const rect = this.getBoundingClientRect();
+            createFireworks(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        });
+
         createClouds();
-        
-        // Create new red packets periodically
         setInterval(createRedPacket, 5000);
     </script>
 </body>
